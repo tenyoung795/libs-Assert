@@ -25,7 +25,7 @@ class AssertException: public std::logic_error
  */
 #define fail(msg) throw AssertException(__FILE__, __LINE__, (msg))
 
-void assertTrueExplicit(const std::string &file, size_t line, const std::string &expr, bool, const std::string &msg) throw(AssertException);
+void assertTrueExplicit(const std::string &file, size_t line, const std::string &expr, bool, const std::string &msg);
 /*
  * Asserts that an expression is true.
  * If not, throws an exception at the current line in the current file
@@ -34,7 +34,7 @@ void assertTrueExplicit(const std::string &file, size_t line, const std::string 
 #define assertTrueMsg(expr, msg) assertTrueExplicit(__FILE__, __LINE__, #expr, (expr), (msg))
 #define assertTrue(expr) assertTrueMsg(expr, "")
 
-void assertFalseExplicit(const std::string &file, size_t line, const std::string &expr, bool, const std::string &msg) throw(AssertException);
+void assertFalseExplicit(const std::string &file, size_t line, const std::string &expr, bool, const std::string &msg);
 /*
  * Asserts that an expression is false.
  * If not, throws an exception at the current line in the current file

@@ -28,7 +28,7 @@ class AssertTrueException: public AssertException
         AssertException(file, line, message(expr, msg)) {}
 };
 
-void assertTrueExplicit(const string &file, size_t line, const string &expr, bool b, const string &msg) throw(AssertException)
+void assertTrueExplicit(const string &file, size_t line, const string &expr, bool b, const string &msg)
 {
     if (!b) throw AssertTrueException(file, line, expr, msg);
 }
@@ -47,7 +47,7 @@ class AssertFalseException: public AssertException
         AssertException(file, line, message(expr, msg)) {}
 };
 
-void assertFalseExplicit(const string &file, size_t line, const string &expr, bool b, const string &msg) throw(AssertException)
+void assertFalseExplicit(const string &file, size_t line, const string &expr, bool b, const string &msg)
 {
     if (b) throw AssertFalseException(file, line, expr, msg);
 }
@@ -169,4 +169,10 @@ string assertEqualsMessage(const string &expectedExpr, const string &expected, c
     return s.str();
 }
 
+string assertThrowMessage(const string &funcExpr, const string &typeName, const string &msg)
+{
+    string s("Expected " + funcExpr + " to throw " + typeName);
+    if (!msg.empty()) s += ": " + msg;
+    return s;
+}
 
