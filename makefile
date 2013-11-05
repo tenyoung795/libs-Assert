@@ -4,23 +4,28 @@ CC = g++
 STANDARD = c++0x
 OPTIONS = -std=$(STANDARD) -Wall
 
-Assert.h.gch: Assert.h
-	$(CC) $(OPTIONS) -x c++-header Assert.h
+all: libassert.a assert_demo
 
-Assert.o: Assert.cpp Assert.h
-	$(CC) $(OPTIONS) -c Assert.cpp
+assert_demo: assert_demo.o assert.o
+	$(CC) $(OPTIONS) -o assert_demo assert_demo.o assert.o
 
-libassert.a: Assert.o
-	ar -cvq libassert.a Assert.o
+assert_demo.o: assert_demo.cpp assert.h
+	$(CC) $(OPTIONS) -c assert_demo.cpp
 
-install: libassert.a Assert.h.gch
+assert.o: assert.cpp assert.h
+	$(CC) $(OPTIONS) -c assert.cpp
+
+libassert.a: assert.o
+	ar -cvq libassert.a assert.o
+
+install: libassert.a assert.h
 	cp libassert.a /usr/lib/
-	cp Assert.h /usr/include
+	cp assert.h /usr/include
 
-install_local: libassert.a Assert.h.gch
+install_local: libassert.a assert.h
 	cp libassert.a /usr/local/lib/
-	cp Assert.h /usr/local/include
+	cp assert.h /usr/local/include
 
 clean:
-	rm -f Assert.o libassert.a Assert.h.gch *~ *.swp
+	rm -f assert_demo assert_demo.o assert.o libassert.a *~ *.swp
 
